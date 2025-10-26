@@ -9,12 +9,16 @@ df = df.rename(columns={
   'service_zone': 'service_zone'
 })
 
+print('First 5 rows')
 print(df.head(5))
 
-print(df['borough'].unique())
+print('Check for null value in each column')
+print('Null value of service_zone' ,df['service_zone'].isnull().sum())
+print('Null value of borough' ,df['borough'].isnull().sum())
+print('Null value of zone' ,df['zone'].isnull().sum())
 
-df = df.dropna(subset=['zone', 'service_zone'])
+df['service_zone'] = df['service_zone'].fillna('Unknown')
 
-print(df.isnull().sum())
+print('Null value of service_zone' ,df['service_zone'].isnull().sum())
 
 df.to_csv('data/processed/taxi_zone_lookup.csv', index=False)
